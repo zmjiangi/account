@@ -1,0 +1,50 @@
+archivesBaseName = 'account'
+
+buildscript {
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    }
+    dependencies {
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.5.4.RELEASE')
+    }
+}
+
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    compile project(':account-api')
+    compile(
+        ['org.springframework.boot:spring-boot-starter-web'],
+        ['org.springframework.boot:spring-boot-starter-thymeleaf'],
+        ['org.springframework.boot:spring-boot-starter-data-mongodb'],
+        
+        ['org.aspectj:aspectjrt:1.8.10'],
+        ['org.aspectj:aspectjweaver:1.8.10'],
+        
+        ['org.thymeleaf:thymeleaf:3.0.5.RELEASE'],
+        ['org.thymeleaf:thymeleaf-spring4:3.0.5.RELEASE'],
+        ['nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.0.5'],
+        
+        ['org.apereo.cas:cas-server-core:5.1.2'],
+        ['org.apereo.cas:cas-server-core-audit:5.1.2'],
+        ['org.apereo.cas:cas-server-core-logging:5.1.2'],
+        ['org.apereo.cas:cas-server-support-actions:5.1.2'],
+        ['org.apereo.cas:cas-server-support-cookie:5.1.2'],
+        ['org.apereo.cas:cas-server-support-geolocation:5.1.2'],
+        ['org.apereo.cas:cas-server-support-ldap-core:5.1.2'],
+        ['org.apereo.cas:cas-server-support-pm:5.1.2'],
+        ['org.apereo.cas:cas-server-support-reports:5.1.2'],
+        ['org.apereo.cas:cas-server-support-themes:5.1.2'],
+        ['org.apereo.cas:cas-server-support-throttle:5.1.2'],
+        ['org.apereo.cas:cas-server-support-validation:5.1.2'],
+        ['org.apereo.cas:cas-server-webapp-config:5.1.2'],
+        ['org.apereo.cas:cas-server-support-oauth-webflow:5.1.2'],
+        
+        ['com.github.penggle:kaptcha:2.3.2']
+    )
+    testCompile(
+        ['org.springframework.boot:spring-boot-starter-test'],
+        ['de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.0.0'],
+        ['org.testng:testng:6.11']
+    )
+}

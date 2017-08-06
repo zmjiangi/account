@@ -1,0 +1,11 @@
+{
+  "@class": "org.apereo.cas.support.oauth.services.OAuthRegisteredService",
+  "clientId": "mobile",
+  "clientSecret": "mobileSecret",
+  "bypassApprovalPrompt": true,
+  "serviceId": "^(http|https)://localhost.*",
+  "name": "Mobile",
+  "id": 100002,
+  "description": "Mobile HTTP OAuth",
+  "evaluationOrder": 1
+}

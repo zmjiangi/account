@@ -1,0 +1,76 @@
+server:
+  port: 8090
+  context-path: /account
+  use-forward-headers: true
+  max-http-header-size: 2097152
+  context-parameters.isLog4jAutoInitializationDisabled: true
+  session:
+    timeout: 1800
+    cookie:
+      secure: false
+      http-only: true
+    tracking-modes: cookie
+  error:
+    include-stacktrace: NEVER
+  tomcat:
+    max-threads: 5
+    port-header: X-Forwarded-Port
+    protocol-header: X-Forwarded-Proto
+    protocol-header-https-value: https
+    remote-ip-header: X-FORWARDED-FOR
+    uri-encoding: UTF-8
+cas:
+  server:
+    ajp:
+      enabled: false
+    http:
+      enabled: false
+    prefix: https://www.ruandao.com/account
+  tgc:
+    secure: false
+  warningCookie:
+    secure: false
+  logout:
+    followServiceRedirects: true
+  tgt:
+    timeToKillInSeconds: 28800
+  locale:
+    defaultValue: zh_CN
+  authn:
+    pm:
+      enabled: true
+      policyPattern: ^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]{6,20}$
+    oauth:
+      code:
+        timeToKillInSeconds: 30
+        numberOfUses: 1
+      refreshToken:
+        timeToKillInSeconds: 2592000
+      accessToken:
+        timeToKillInSeconds: 7200
+        maxTimeToLiveInSeconds: 28800
+captcha:
+  kaptcha.border: 'no'
+  kaptcha.textproducer.font.color: blue
+  kaptcha.textproducer.font.size: '60'
+  kaptcha.textproducer.char.length: '4'
+  kaptcha.image.width: '200'
+  kaptcha.image.height: '80'
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  mvc:
+    locale: zh_CN
+  aop:
+    auto: true
+    proxy-target-class: true
+  cloud:
+    bus:
+      enabled: false
+  thymeleaf:
+    mode: HTML
+    cache: true
+    encoding: UTF-8
