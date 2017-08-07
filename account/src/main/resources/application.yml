@@ -1,6 +1,5 @@
 server:
   port: 8090
-  context-path: /account
   use-forward-headers: true
   max-http-header-size: 2097152
   context-parameters.isLog4jAutoInitializationDisabled: true
@@ -25,7 +24,7 @@ cas:
       enabled: false
     http:
       enabled: false
-    prefix: https://www.ruandao.com/account
+    prefix: https://account.aulang.net
   tgc:
     secure: false
   warningCookie:
