@@ -2,31 +2,23 @@ package net.aulang.account;
 
 import org.apereo.cas.configuration.CasConfigurationProperties;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.autoconfigure.MetricsDropwizardAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.groovy.template.GroovyTemplateAutoConfiguration;
-import org.springframework.boot.autoconfigure.jersey.JerseyAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
-@ImportResource(locations = { "classpath:/applicationContext.xml", "classpath:/deployerConfigContext.groovy" })
-@SpringBootApplication(exclude = { 
-		JerseyAutoConfiguration.class,
-		GroovyTemplateAutoConfiguration.class,
-		MetricsDropwizardAutoConfiguration.class })
-@ComponentScan(basePackages = { "org.apereo.cas", "org.pac4j.springframework", "net.aulang.account" },
-		excludeFilters = { 
-				@ComponentScan.Filter(
-						type = FilterType.REGEX,
-						pattern = "org\\.pac4j\\.springframework\\.web\\.ApplicationLogoutController") })
 @EnableAsync
-// @EnableConfigServer
+@EnableScheduling
+@EnableDiscoveryClient
+@SpringBootApplication
+@ComponentScan("net.aulang.account")
 @EnableConfigurationProperties(CasConfigurationProperties.class)
+@ImportResource(locations = { "classpath:/deployerConfigContext.xml", "classpath:/deployerConfigContext.groovy" })
 public class AccountApplication extends SpringBootServletInitializer {
 	public static void main(final String[] args) {
 		SpringApplication.run(AccountApplication.class, args);

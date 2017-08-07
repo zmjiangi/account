@@ -12,7 +12,9 @@ buildscript {
 apply plugin: 'org.springframework.boot'
 
 
-cas_version = '5.1.2'
+ext {
+    cas_version = '5.1.2'
+}
 
 dependencies {
     compile project(':account-api')
