@@ -11,6 +11,9 @@ buildscript {
 
 apply plugin: 'org.springframework.boot'
 
+
+cas_version = '5.1.2'
+
 dependencies {
     compile project(':account-api')
     compile(
@@ -25,20 +28,20 @@ dependencies {
         ['org.thymeleaf:thymeleaf-spring4:3.0.5.RELEASE'],
         ['nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.0.5'],
         
-        ['org.apereo.cas:cas-server-core:5.1.2'],
-        ['org.apereo.cas:cas-server-core-audit:5.1.2'],
-        ['org.apereo.cas:cas-server-core-logging:5.1.2'],
-        ['org.apereo.cas:cas-server-support-actions:5.1.2'],
-        ['org.apereo.cas:cas-server-support-cookie:5.1.2'],
-        ['org.apereo.cas:cas-server-support-geolocation:5.1.2'],
-        ['org.apereo.cas:cas-server-support-ldap-core:5.1.2'],
-        ['org.apereo.cas:cas-server-support-pm:5.1.2'],
-        ['org.apereo.cas:cas-server-support-reports:5.1.2'],
-        ['org.apereo.cas:cas-server-support-themes:5.1.2'],
-        ['org.apereo.cas:cas-server-support-throttle:5.1.2'],
-        ['org.apereo.cas:cas-server-support-validation:5.1.2'],
-        ['org.apereo.cas:cas-server-webapp-config:5.1.2'],
-        ['org.apereo.cas:cas-server-support-oauth-webflow:5.1.2'],
+        ["org.apereo.cas:cas-server-core:$cas_version"],
+        ["org.apereo.cas:cas-server-core-audit:$cas_version"],
+        ["org.apereo.cas:cas-server-core-logging:$cas_version"],
+        ["org.apereo.cas:cas-server-support-actions:$cas_version"],
+        ["org.apereo.cas:cas-server-support-cookie:$cas_version"],
+        ["org.apereo.cas:cas-server-support-geolocation:$cas_version"],
+        ["org.apereo.cas:cas-server-support-ldap-core:$cas_version"],
+        ["org.apereo.cas:cas-server-support-pm:$cas_version"],
+        ["org.apereo.cas:cas-server-support-reports:$cas_version"],
+        ["org.apereo.cas:cas-server-support-themes:$cas_version"],
+        ["org.apereo.cas:cas-server-support-throttle:$cas_version"],
+        ["org.apereo.cas:cas-server-support-validation:$cas_version"],
+        ["org.apereo.cas:cas-server-webapp-config:$cas_version"],
+        ["org.apereo.cas:cas-server-support-oauth-webflow:$cas_version"],
         
         ['com.github.penggle:kaptcha:2.3.2']
     )
