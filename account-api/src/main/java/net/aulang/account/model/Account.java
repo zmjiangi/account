@@ -11,15 +11,31 @@ import java.io.Serializable;
 public class Account implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private String id;
 	private String username;
 	private String password;
+
+	private boolean mustChangePassword;
 
 	public Account() {
 	}
 
-	public Account(String username, String password) {
+	public Account(String id) {
+		this.id = id;
+	}
+
+	public Account(String id, String username, String password) {
+		this.id = id;
 		this.username = username;
 		this.password = password;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getUsername() {
@@ -36,5 +52,13 @@ public class Account implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public boolean getMustChangePassword() {
+		return mustChangePassword;
+	}
+
+	public void setMustChangePassword(boolean mustChangePassword) {
+		this.mustChangePassword = mustChangePassword;
 	}
 }
