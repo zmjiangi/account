@@ -42,7 +42,6 @@ dependencies {
         ["org.apereo.cas:cas-server-support-themes:$cas_version"],
         ["org.apereo.cas:cas-server-support-throttle:$cas_version"],
         ["org.apereo.cas:cas-server-support-validation:$cas_version"],
-        ["org.apereo.cas:cas-server-webapp-config:$cas_version"],
         ["org.apereo.cas:cas-server-support-oauth-webflow:$cas_version"],
         
         ['com.github.penggle:kaptcha:2.3.2']
