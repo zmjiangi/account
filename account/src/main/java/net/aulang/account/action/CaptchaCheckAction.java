@@ -25,9 +25,6 @@ public class CaptchaCheckAction extends AbstractAction {
 	@Autowired
 	private DefaultKaptcha kaptcha;
 
-	/**
-	 * TODO HttpSession
-	 */
 	@Override
 	protected Event doExecute(RequestContext context) throws Exception {
 		try {

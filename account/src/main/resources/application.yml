@@ -48,6 +48,9 @@ cas:
       accessToken:
         timeToKillInSeconds: 7200
         maxTimeToLiveInSeconds: 28800
+  serviceRegistry:
+    startDelay: 20000
+    repeatInterval: 60000
 captcha:
   kaptcha.border: 'no'
   kaptcha.textproducer.font.color: blue
