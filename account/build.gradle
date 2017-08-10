@@ -46,7 +46,6 @@ dependencies {
     )
     testCompile(
         ['org.springframework.boot:spring-boot-starter-test'],
-        ['de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.0.0'],
-        ['org.testng:testng:6.11']
+        ['de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.0.0']
     )
 }
