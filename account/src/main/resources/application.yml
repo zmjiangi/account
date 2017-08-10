@@ -56,6 +56,8 @@ captcha:
   kaptcha.image.width: '200'
   kaptcha.image.height: '80'
 spring:
+  application:
+    name: account
   http:
     encoding:
       charset: UTF-8
@@ -73,3 +75,6 @@ spring:
     mode: HTML
     cache: true
     encoding: UTF-8
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017/account
