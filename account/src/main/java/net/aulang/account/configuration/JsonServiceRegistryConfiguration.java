@@ -27,9 +27,7 @@ public class JsonServiceRegistryConfiguration {
      */
     @PostConstruct
     public void init() {
-        this.embeddedJsonServiceRegistry.load().forEach(e -> {
-            this.serviceRegistryDao.save(e);
-        });
+        this.embeddedJsonServiceRegistry.load().forEach(e -> this.serviceRegistryDao.save(e));
         servicesManager.load();
     }
 }

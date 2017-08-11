@@ -12,13 +12,13 @@ public class AccountBiz implements AccountService {
     }
 
     @Override
-    public Account getByLoginName(String loginName) {
-        return null;
+    public Account getByUsername(String username) {
+        return new Account(username, username, username);
     }
 
     @Override
     public Account login(String username, String password) {
-        return null;
+        return new Account(username, username, password);
     }
 
     @Override
@@ -27,6 +27,6 @@ public class AccountBiz implements AccountService {
     }
 
     public Account changePassword(String accountId, String password) {
-        return null;
+        return new Account(accountId, accountId, password);
     }
 }

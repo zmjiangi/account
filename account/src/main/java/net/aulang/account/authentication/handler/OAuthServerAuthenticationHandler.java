@@ -1,13 +1,14 @@
 package net.aulang.account.authentication.handler;
 
 import net.aulang.account.authentication.AccountCredential;
+import net.aulang.account.authentication.principal.DefaultPrincipal;
 import net.aulang.account.manage.AccountBiz;
 import net.aulang.account.model.Account;
-import org.apereo.cas.authentication.*;
+import org.apereo.cas.authentication.Credential;
+import org.apereo.cas.authentication.HandlerResult;
+import org.apereo.cas.authentication.PreventedException;
+import org.apereo.cas.authentication.UsernamePasswordCredential;
 import org.apereo.cas.authentication.exceptions.AccountPasswordMustChangeException;
-import org.apereo.cas.authentication.principal.DefaultPrincipalFactory;
-import org.apereo.cas.authentication.principal.Principal;
-import org.apereo.cas.authentication.principal.PrincipalFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,25 +20,9 @@ import java.security.GeneralSecurityException;
  * OAuth服务端认证处理器
  */
 @Component("oauthServerAuthenticationHandler")
-public class OAuthServerAuthenticationHandler implements AuthenticationHandler {
+public class OAuthServerAuthenticationHandler extends AbstractAuthenticationHandler {
     @Autowired
     private AccountBiz accountBiz;
-
-    private PrincipalFactory principalFactory = new DefaultPrincipalFactory();
-
-    @Override
-    public String getName() {
-        return getClass().getName();
-    }
-
-    @Override
-    public int getOrder() {
-        return 0;
-    }
-
-    protected HandlerResult createHandlerResult(final Credential credential, final Principal principal) {
-        return new DefaultHandlerResult(this, new BasicCredentialMetaData(credential), principal, null);
-    }
 
     /**
      * 认证处理过程
@@ -59,7 +44,9 @@ public class OAuthServerAuthenticationHandler implements AuthenticationHandler {
                  */
                 throw new AccountPasswordMustChangeException("请修改您的初始密码！");
             }
-            return createHandlerResult(credential, principalFactory.createPrincipal(account.getId()));
+            DefaultPrincipal principal = new DefaultPrincipal(account.getId());
+
+            return createHandlerResult(credential, principal);
         } else {
             throw new FailedLoginException();
         }

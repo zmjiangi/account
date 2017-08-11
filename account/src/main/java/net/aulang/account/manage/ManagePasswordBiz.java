@@ -33,7 +33,7 @@ public class ManagePasswordBiz implements PasswordManagementService {
 
     @Override
     public String findEmail(String username) {
-        Account account = accountBiz.getByLoginName(username);
+        Account account = accountBiz.getByUsername(username);
         if (account != null) {
             return null;
         }
@@ -52,7 +52,7 @@ public class ManagePasswordBiz implements PasswordManagementService {
 
     @Override
     public Map<String, String> getSecurityQuestions(String username) {
-        Account account = accountBiz.getByLoginName(username);
+        Account account = accountBiz.getByUsername(username);
         if (account != null) {
             return null;
         } else {

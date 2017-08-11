@@ -28,13 +28,20 @@
         <transition on="success" to="viewLoginForm"/>
     </action-state>
 
-    <view-state id="viewLoginForm" view="casLoginView" model="credential">
+    <view-state id="viewLoginForm" view="aulang/login" model="credential">
         <binder>
             <binding property="username" required="true"/>
             <binding property="password" required="true"/>
+            <binding property="captcha" required="false"/>
         </binder>
-        <transition on="submit" bind="true" validate="true" to="realSubmit" history="invalidate"/>
+        <transition on="submit" bind="true" validate="true" to="captchaCheck" history="invalidate"/>
     </view-state>
+
+    <action-state id="captchaCheck">
+        <evaluate expression="captchaCheckAction"/>
+        <transition on="success" to="realSubmit"/>
+        <transition to="initializeLoginForm"/>
+    </action-state>
 
     <action-state id="realSubmit">
         <evaluate expression="authenticationViaFormAction"/>
@@ -66,4 +73,9 @@
         <transition on="error" to="initializeLoginForm"/>
         <transition on="gateway" to="gatewayServicesManagementCheck"/>
     </action-state>
+
+    <!-- org.apereo.cas.pm.web.flow.PasswordManagementWebflowConfigurer
+        里设置casMustChangePassView的view不能自定义，这里新建一个覆盖它
+    -->
+    <view-state id="casMustChangePassView" view="aulang/changepwd"></view-state>
 </flow>

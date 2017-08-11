@@ -2,8 +2,7 @@ package net.aulang.account.configuration;
 
 import net.aulang.account.authentication.handler.AccountAuthenticationHandler;
 import net.aulang.account.authentication.handler.OAuthServerAuthenticationHandler;
-import net.aulang.account.authentication.principal.AccountPrincipalResolver;
-import net.aulang.account.authentication.principal.OAuthServerPrincipalResolver;
+import net.aulang.account.authentication.principal.DefaultPrincipalResolver;
 import org.apereo.cas.authentication.AuthenticationEventExecutionPlan;
 import org.apereo.cas.authentication.AuthenticationEventExecutionPlanConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +14,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AuthenticationHandlerConfiguration implements AuthenticationEventExecutionPlanConfigurer {
     @Autowired
-    private AccountPrincipalResolver accountPrincipalResolver;
+    private DefaultPrincipalResolver defaultPrincipalResolver;
     @Autowired
     private AccountAuthenticationHandler accountAuthenticationHandler;
-
     @Autowired
     private OAuthServerAuthenticationHandler oAuthServerAuthenticationHandler;
-    @Autowired
-    private OAuthServerPrincipalResolver oAuthServerPrincipalResolver;
 
     @Override
     public void configureAuthenticationExecutionPlan(AuthenticationEventExecutionPlan plan) {
-        plan.registerAuthenticationHandlerWithPrincipalResolver(accountAuthenticationHandler, accountPrincipalResolver);
-        plan.registerAuthenticationHandlerWithPrincipalResolver(oAuthServerAuthenticationHandler, oAuthServerPrincipalResolver);
+        plan.registerAuthenticationHandlerWithPrincipalResolver(accountAuthenticationHandler, defaultPrincipalResolver);
+        plan.registerAuthenticationHandlerWithPrincipalResolver(oAuthServerAuthenticationHandler, defaultPrincipalResolver);
     }
 }

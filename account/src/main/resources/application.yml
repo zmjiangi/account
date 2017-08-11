@@ -24,7 +24,7 @@ cas:
       enabled: false
     http:
       enabled: false
-    prefix: https://account.aulang.net
+    prefix: http://127.0.0.1:8090
   tgc:
     secure: false
   warningCookie:
