@@ -11,7 +11,7 @@ import net.aulang.account.model.Account;
 public interface AccountService {
 	Account get();
 
-	Account getByLoginName(String loginName);
+	Account getByUsername(String loginName);
 
 	Account login(String username, String password);
 
