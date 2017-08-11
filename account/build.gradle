@@ -16,6 +16,10 @@ ext {
     cas_version = '5.1.2'
 }
 
+configurations {
+    all*.exclude group: 'org.springframework.boot', module: 'spring-boot-devtools'
+}
+
 dependencies {
     compile project(':account-api')
     compile(
