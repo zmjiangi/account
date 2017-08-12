@@ -28,9 +28,6 @@ dependencies {
         ['org.springframework.boot:spring-boot-starter-thymeleaf'],
         ['org.springframework.boot:spring-boot-starter-data-mongodb'],
 
-        ['org.aspectj:aspectjrt:1.8.10'],
-        ['org.aspectj:aspectjweaver:1.8.10'],
-
         ['org.thymeleaf:thymeleaf:3.0.5.RELEASE'],
         ['org.thymeleaf:thymeleaf-spring4:3.0.5.RELEASE'],
         ['nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.0.5'],
@@ -46,6 +43,7 @@ dependencies {
         ["org.apereo.cas:cas-server-support-validation:$cas_version"],
         ["org.apereo.cas:cas-server-support-oauth-webflow:$cas_version"],
         ["org.apereo.cas:cas-server-webapp-config:$cas_version"],
+        ["org.apereo.cas:cas-server-support-redis-ticket-registry:$cas_version"],
 
         ['com.github.penggle:kaptcha:2.3.2']
     )
