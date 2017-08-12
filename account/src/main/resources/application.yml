@@ -19,38 +19,42 @@ server:
     remote-ip-header: X-FORWARDED-FOR
     uri-encoding: UTF-8
 cas:
+  locale:
+    defaultValue: zh_CN
   server:
     ajp:
       enabled: false
     http:
       enabled: false
-    prefix: http://127.0.0.1:8090
+    prefix: https://www.ruandao.com/account
   tgc:
     secure: false
   warningCookie:
     secure: false
   logout:
     followServiceRedirects: true
-  tgt:
-    timeToKillInSeconds: 28800
-  locale:
-    defaultValue: zh_CN
+  ticket:
+    st:
+      timeToKillInSeconds: 20
+    tgt:
+      timeToKillInSeconds: 28800
+    registry:
+      redis:
+        host: 127.0.0.1
+        port: 6379
   authn:
     pm:
       enabled: true
       policyPattern: ^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]{6,20}$
     oauth:
-      code:
-        timeToKillInSeconds: 30
-        numberOfUses: 1
       refreshToken:
-        timeToKillInSeconds: 2592000
+        timeToKillInSeconds: 7776000
       accessToken:
-        timeToKillInSeconds: 7200
-        maxTimeToLiveInSeconds: 28800
+        timeToKillInSeconds: 28800
+        maxTimeToLiveInSeconds: 2592000
   serviceRegistry:
     startDelay: 20000
-    repeatInterval: 60000
+    repeatInterval: 600000
 captcha:
   kaptcha.border: 'no'
   kaptcha.textproducer.font.color: blue
