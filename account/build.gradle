@@ -5,50 +5,49 @@ buildscript {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     }
     dependencies {
-        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.5.4.RELEASE')
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.5.6.RELEASE')
     }
 }
 
 apply plugin: 'org.springframework.boot'
-
 
 ext {
     cas_version = '5.1.2'
 }
 
 configurations {
+    all*.exclude group: 'ch.qos.logback', module: 'logback-classic'
     all*.exclude group: 'org.springframework.boot', module: 'spring-boot-devtools'
 }
 
 dependencies {
     compile project(':account-api')
     compile(
-        ['org.springframework.boot:spring-boot-starter-web'],
-        ['org.springframework.boot:spring-boot-starter-actuator'],
-        ['org.springframework.boot:spring-boot-starter-thymeleaf'],
-        ['org.springframework.boot:spring-boot-starter-data-mongodb'],
-
+        'org.springframework.boot:spring-boot-starter-web',
+        'org.springframework.boot:spring-boot-starter-thymeleaf',
+        'org.springframework.boot:spring-boot-starter-data-mongodb',
+        
         ['org.thymeleaf:thymeleaf:3.0.5.RELEASE'],
         ['org.thymeleaf:thymeleaf-spring4:3.0.5.RELEASE'],
         ['nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.0.5'],
 
-        ["org.apereo.cas:cas-server-core:$cas_version"],
-        ["org.apereo.cas:cas-server-core-audit:$cas_version"],
-        ["org.apereo.cas:cas-server-core-logging:$cas_version"],
-        ["org.apereo.cas:cas-server-support-actions:$cas_version"],
-        ["org.apereo.cas:cas-server-support-cookie:$cas_version"],
-        ["org.apereo.cas:cas-server-support-pm:$cas_version"],
-        ["org.apereo.cas:cas-server-support-themes:$cas_version"],
-        ["org.apereo.cas:cas-server-support-throttle:$cas_version"],
-        ["org.apereo.cas:cas-server-support-validation:$cas_version"],
-        ["org.apereo.cas:cas-server-support-oauth-webflow:$cas_version"],
-        ["org.apereo.cas:cas-server-webapp-config:$cas_version"],
-        ["org.apereo.cas:cas-server-support-redis-ticket-registry:$cas_version"],
+        "org.apereo.cas:cas-server-core:$cas_version",
+        "org.apereo.cas:cas-server-core-audit:$cas_version",
+        "org.apereo.cas:cas-server-core-logging:$cas_version",
+        "org.apereo.cas:cas-server-support-actions:$cas_version",
+        "org.apereo.cas:cas-server-support-cookie:$cas_version",
+        "org.apereo.cas:cas-server-support-pm:$cas_version",
+        "org.apereo.cas:cas-server-support-themes:$cas_version",
+        "org.apereo.cas:cas-server-support-throttle:$cas_version",
+        "org.apereo.cas:cas-server-support-validation:$cas_version",
+        "org.apereo.cas:cas-server-support-oauth-webflow:$cas_version",
+        "org.apereo.cas:cas-server-support-redis-ticket-registry:$cas_version",
+        "org.apereo.cas:cas-server-webapp-config:$cas_version",
 
-        ['com.github.penggle:kaptcha:2.3.2']
+        'com.github.penggle:kaptcha:2.3.2'
     )
     testCompile(
-        ['org.springframework.boot:spring-boot-starter-test'],
-        ['de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.0.0']
+        'org.springframework.boot:spring-boot-starter-test',
+        'de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.0.0'
     )
 }

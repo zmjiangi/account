@@ -1,5 +1,5 @@
 server:
-  port: 8090
+  port: 8888
   use-forward-headers: true
   max-http-header-size: 2097152
   context-parameters.isLog4jAutoInitializationDisabled: true
@@ -26,7 +26,7 @@ cas:
       enabled: false
     http:
       enabled: false
-    prefix: https://www.ruandao.com/account
+    prefix: https://account.aulang.net
   tgc:
     secure: false
   warningCookie:
@@ -53,6 +53,7 @@ cas:
         timeToKillInSeconds: 28800
         maxTimeToLiveInSeconds: 2592000
   serviceRegistry:
+    initFromJson: true
     startDelay: 20000
     repeatInterval: 600000
 captcha:

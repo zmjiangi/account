@@ -1,12 +1,10 @@
 spring:
-  application:
-    name: account
   cloud:
     config:
       fail-fast: true
       server:
         bootstrap: true
-        prefix: /status/configserver
+        prefix: /status/config
   profiles:
     active: native
   jmx:
