@@ -46,8 +46,4 @@ dependencies {
 
         'com.github.penggle:kaptcha:2.3.2'
     )
-    testCompile(
-        'org.springframework.boot:spring-boot-starter-test',
-        'de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.0.0'
-    )
 }
