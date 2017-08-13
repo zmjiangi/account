@@ -32,16 +32,16 @@ public class ManagePasswordBiz implements PasswordManagementService {
     }
 
     @Override
-    public String findEmail(String username) {
-        Account account = accountBiz.getByUsername(username);
+    public String findEmail(String loginName) {
+        Account account = accountBiz.getByLoginName(loginName);
         if (account != null) {
-            return null;
+            return account.getPrimaryEmail();
         }
         return null;
     }
 
     @Override
-    public String createToken(String username) {
+    public String createToken(String loginName) {
         return null;
     }
 
@@ -51,10 +51,10 @@ public class ManagePasswordBiz implements PasswordManagementService {
     }
 
     @Override
-    public Map<String, String> getSecurityQuestions(String username) {
-        Account account = accountBiz.getByUsername(username);
+    public Map<String, String> getSecurityQuestions(String loginName) {
+        Account account = accountBiz.getByLoginName(loginName);
         if (account != null) {
-            return null;
+            return account.getSecurityQuestions();
         } else {
             return null;
         }

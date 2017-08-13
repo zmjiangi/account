@@ -39,7 +39,7 @@ public class AccountAuthenticationHandler extends AbstractAuthenticationHandler 
 
         if (account != null) {
             accountCredential.setId(account.getId());
-            if (account.getMustChangePassword()) {
+            if (account.isMustChangePassword()) {
                 /**
                  * 必须修改密码
                  */

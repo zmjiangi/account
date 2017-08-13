@@ -38,7 +38,7 @@ public class OAuthServerAuthenticationHandler extends AbstractAuthenticationHand
         }
 
         if (account != null) {
-            if (account.getMustChangePassword()) {
+            if (account.isMustChangePassword()) {
                 /**
                  * 必须修改密码
                  */
