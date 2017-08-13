@@ -13,18 +13,20 @@ public class InitialRestController {
     private AccountBiz accountBiz;
 
     @GetMapping(path = "/inituser", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public String init() {
-        long count = accountBiz.count();
-        if (count == 0) {
-            Account account = new Account();
-            account.setUsername("aulang");
-            account.setEmail("aulang@qq.com");
-            account.setMobile("17620157736");
-            account.setPassword("aulang88");
-            account.setNickname("Aulang");
-            account = accountBiz.register(account);
-            if (account != null) {
-                return "success";
+    public String init(String name) {
+        if ("aulang".equals(name)) {
+            long count = accountBiz.count();
+            if (count == 0) {
+                Account account = new Account();
+                account.setUsername("aulang");
+                account.setEmail("aulang@qq.com");
+                account.setMobile("17620157736");
+                account.setPassword("aulang88");
+                account.setNickname("Aulang");
+                account = accountBiz.register(account);
+                if (account != null) {
+                    return "success";
+                }
             }
         }
         return "fail";

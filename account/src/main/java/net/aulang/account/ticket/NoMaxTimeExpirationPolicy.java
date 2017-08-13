@@ -1,7 +1,8 @@
 package net.aulang.account.ticket;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apereo.cas.ticket.TicketState;
-import org.apereo.cas.ticket.accesstoken.OAuthAccessTokenExpirationPolicy;
+import org.apereo.cas.ticket.support.AbstractCasExpirationPolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,10 +10,15 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
-public class NoMaxTimeToLiveExpirationPolicy extends OAuthAccessTokenExpirationPolicy {
+public class NoMaxTimeExpirationPolicy extends AbstractCasExpirationPolicy {
     private static final long serialVersionUID = 1L;
+    private static final Logger LOGGER = LoggerFactory.getLogger(NoMaxTimeExpirationPolicy.class);
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(NoMaxTimeToLiveExpirationPolicy.class);
+    private long timeToKillInSeconds;
+
+    public NoMaxTimeExpirationPolicy(@JsonProperty("timeToIdle") final long timeToKill) {
+        this.timeToKillInSeconds = timeToKill;
+    }
 
     @Override
     public boolean isExpired(TicketState ticketState) {
@@ -24,5 +30,15 @@ public class NoMaxTimeToLiveExpirationPolicy extends OAuthAccessTokenExpirationP
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Long getTimeToLive() {
+        return 0L;
+    }
+
+    @Override
+    public Long getTimeToIdle() {
+        return this.timeToKillInSeconds;
     }
 }
