@@ -4,16 +4,13 @@ import net.aulang.account.model.Account;
 
 /**
  * 账号服务
- * 
- * @author Aulang
  *
+ * @author Aulang
  */
 public interface AccountService {
-	Account get();
+    Account get(String id);
 
-	Account getByUsername(String loginName);
+    Account login(String loginName, String password);
 
-	Account login(String username, String password);
-
-	Account register(Account account);
+    Account register(Account account);
 }

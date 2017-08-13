@@ -9,3 +9,7 @@ artifacts {
     archives jar
     archives sourcesJar
 }
+
+dependencies {
+    compileOnly 'org.springframework.data:spring-data-mongodb:1.10.6.RELEASE'
+}
