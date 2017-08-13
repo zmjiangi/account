@@ -1,9 +1,19 @@
-plugins {
-    id 'org.springframework.boot' version '1.5.6.RELEASE'
+archivesBaseName = 'account'
+
+buildscript {
+    ext {
+        casVersion = '5.1.2'
+        springBootVersion = '1.5.6.RELEASE'
+    }
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
-archivesBaseName = 'account'
-ext.cas_version = '5.1.2'
+apply plugin: 'org.springframework.boot'
 
 configurations {
     all*.exclude group: 'ch.qos.logback', module: 'logback-classic'
@@ -21,18 +31,18 @@ dependencies {
             'org.thymeleaf:thymeleaf-spring4:3.0.5.RELEASE',
             'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.0.5',
 
-            "org.apereo.cas:cas-server-core:$cas_version",
-            "org.apereo.cas:cas-server-core-audit:$cas_version",
-            "org.apereo.cas:cas-server-core-logging:$cas_version",
-            "org.apereo.cas:cas-server-support-actions:$cas_version",
-            "org.apereo.cas:cas-server-support-cookie:$cas_version",
-            "org.apereo.cas:cas-server-support-pm:$cas_version",
-            "org.apereo.cas:cas-server-support-themes:$cas_version",
-            "org.apereo.cas:cas-server-support-throttle:$cas_version",
-            "org.apereo.cas:cas-server-support-validation:$cas_version",
-            "org.apereo.cas:cas-server-support-oauth-webflow:$cas_version",
-            "org.apereo.cas:cas-server-support-redis-ticket-registry:$cas_version",
-            "org.apereo.cas:cas-server-webapp-config:$cas_version",
+            "org.apereo.cas:cas-server-core:${casVersion}",
+            "org.apereo.cas:cas-server-core-audit:${casVersion}",
+            "org.apereo.cas:cas-server-core-logging:${casVersion}",
+            "org.apereo.cas:cas-server-support-actions:${casVersion}",
+            "org.apereo.cas:cas-server-support-cookie:${casVersion}",
+            "org.apereo.cas:cas-server-support-pm:${casVersion}",
+            "org.apereo.cas:cas-server-support-themes:${casVersion}",
+            "org.apereo.cas:cas-server-support-throttle:${casVersion}",
+            "org.apereo.cas:cas-server-support-validation:${casVersion}",
+            "org.apereo.cas:cas-server-support-oauth-webflow:${casVersion}",
+            "org.apereo.cas:cas-server-support-redis-ticket-registry:${casVersion}",
+            "org.apereo.cas:cas-server-webapp-config:${casVersion}",
 
             'com.github.penggle:kaptcha:2.3.2'
     )
