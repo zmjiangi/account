@@ -74,8 +74,5 @@
         <transition on="gateway" to="gatewayServicesManagementCheck"/>
     </action-state>
 
-    <!-- org.apereo.cas.pm.web.flow.PasswordManagementWebflowConfigurer
-        里设置casMustChangePassView的view不能自定义，这里新建一个覆盖它
-    -->
     <view-state id="casMustChangePassView" view="aulang/changepwd"></view-state>
 </flow>

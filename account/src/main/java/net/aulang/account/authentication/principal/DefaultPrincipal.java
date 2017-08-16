@@ -3,11 +3,13 @@ package net.aulang.account.authentication.principal;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apereo.cas.authentication.principal.Principal;
 import org.springframework.util.Assert;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DefaultPrincipal implements Principal {
@@ -38,12 +40,21 @@ public class DefaultPrincipal implements Principal {
 
     @Override
     public Map<String, Object> getAttributes() {
-        return this.attributes;
+        final Map<String, Object> attrs = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        attrs.putAll(this.attributes);
+        return attrs;
     }
 
     @Override
     public String toString() {
         return this.id;
+    }
+
+    @Override
+    public int hashCode() {
+        final HashCodeBuilder builder = new HashCodeBuilder();
+        builder.append(this.id);
+        return builder.toHashCode();
     }
 
     @Override
