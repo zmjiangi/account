@@ -31,19 +31,18 @@ dependencies {
             'org.thymeleaf:thymeleaf-spring4:3.0.5.RELEASE',
             'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.0.5',
 
+            'com.github.penggle:kaptcha:2.3.2',
+
             "org.apereo.cas:cas-server-core:${casVersion}",
             "org.apereo.cas:cas-server-core-audit:${casVersion}",
             "org.apereo.cas:cas-server-core-logging:${casVersion}",
             "org.apereo.cas:cas-server-support-actions:${casVersion}",
             "org.apereo.cas:cas-server-support-cookie:${casVersion}",
-            "org.apereo.cas:cas-server-support-pm:${casVersion}",
             "org.apereo.cas:cas-server-support-themes:${casVersion}",
             "org.apereo.cas:cas-server-support-throttle:${casVersion}",
             "org.apereo.cas:cas-server-support-validation:${casVersion}",
             "org.apereo.cas:cas-server-support-oauth-webflow:${casVersion}",
             "org.apereo.cas:cas-server-support-redis-ticket-registry:${casVersion}",
-            "org.apereo.cas:cas-server-webapp-config:${casVersion}",
-
-            'com.github.penggle:kaptcha:2.3.2'
+            "org.apereo.cas:cas-server-webapp-config:${casVersion}"
     )
 }

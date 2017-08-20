@@ -4,6 +4,7 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow
                           http://www.springframework.org/schema/webflow/spring-webflow.xsd">
     <var name="credential" class="net.aulang.account.authentication.AccountCredential"/>
+    <var name="password" class="net.aulang.account.authentication.PasswordChangeBean"/>
 
     <on-start>
         <evaluate expression="initialFlowSetupAction"/>
@@ -74,5 +75,21 @@
         <transition on="gateway" to="gatewayServicesManagementCheck"/>
     </action-state>
 
-    <view-state id="casMustChangePassView" view="aulang/changepwd"></view-state>
+    <view-state id="casMustChangePassView" view="aulang/changepwd" model="password">
+        <binder>
+            <binding property="password" required="true"/>
+            <binding property="confirmedPassword" required="true"/>
+        </binder>
+        <transition on="submit" bind="true" validate="true" to="passwordChange" history="invalidate"/>
+    </view-state>
+
+    <action-state id="passwordChange">
+        <evaluate expression="passwordChangeAction"/>
+        <transition on="success" to="passwordUpdateSuccessView"/>
+        <transition on="error" to="casMustChangePassView"/>
+    </action-state>
+
+    <view-state id="passwordUpdateSuccessView" view="aulang/changesuccess">
+        <transition on="submit" to="initializeLoginForm"></transition>
+    </view-state>
 </flow>

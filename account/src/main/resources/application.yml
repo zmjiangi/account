@@ -44,9 +44,6 @@ cas:
         port: 6379
         timeout: 2000
   authn:
-    pm:
-      enabled: true
-      policyPattern: ^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]{6,20}$
     oauth:
       refreshToken:
         timeToKillInSeconds: 7776000

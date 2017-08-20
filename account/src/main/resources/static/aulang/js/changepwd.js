@@ -1,10 +1,10 @@
 $(function () {
     var password = $('#password');
     var confirmed = $('#confirmedPassword');
-    var policyPatternRegex = new RegExp(policyPattern);
+    var passwordRegex = new RegExp('^(?![a-zA-z]+$)(?!\\d+$)(?![!@#$%^&*]+$)[a-zA-Z\\d!@#$%^&*]{6,20}$');
 
     $('#changepwdForm').submit(function () {
-        if (!policyPatternRegex.test(password.val())) {
+        if (!passwordRegex.test(password.val())) {
             $('#errorMsg').html('密码格式：6-20位，不能为纯字母或数字！');
             return false;
         }
