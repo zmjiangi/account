@@ -1,22 +1,18 @@
 server:
   port: 8888
-  use-forward-headers: true
-  max-http-header-size: 2097152
-  context-parameters.isLog4jAutoInitializationDisabled: true
   session:
     timeout: 1800
+    tracking-modes: cookie
     cookie:
       secure: false
       http-only: true
-    tracking-modes: cookie
-  error:
-    include-stacktrace: NEVER
+  use-forward-headers: true
   tomcat:
     max-threads: 5
     port-header: X-Forwarded-Port
     protocol-header: X-Forwarded-Proto
     protocol-header-https-value: https
-    remote-ip-header: X-FORWARDED-FOR
+    remote-ip-header: X-Forwarded-For
     uri-encoding: UTF-8
 cas:
   locale:
@@ -42,7 +38,7 @@ cas:
       redis:
         host: 127.0.0.1
         port: 6379
-        timeout: 2000
+        timeout: 10000
   authn:
     oauth:
       refreshToken:

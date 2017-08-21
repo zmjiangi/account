@@ -16,27 +16,29 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @EnableAsync
 @EnableScheduling
 @EnableDiscoveryClient
+@EnableRedisHttpSession
 @SpringBootApplication(exclude = {
-		JerseyAutoConfiguration.class,
-		DataSourceAutoConfiguration.class,
-		HibernateJpaAutoConfiguration.class,
-		GroovyTemplateAutoConfiguration.class,
-		MetricsDropwizardAutoConfiguration.class
+        JerseyAutoConfiguration.class,
+        DataSourceAutoConfiguration.class,
+        HibernateJpaAutoConfiguration.class,
+        GroovyTemplateAutoConfiguration.class,
+        MetricsDropwizardAutoConfiguration.class
 })
-@ComponentScan({ "net.aulang.account", "org.apereo.cas" })
+@ComponentScan({"net.aulang.account", "org.apereo.cas"})
 @EnableConfigurationProperties(CasConfigurationProperties.class)
-@ImportResource(locations = { "classpath:/deployerConfigContext.xml", "classpath:/deployerConfigContext.groovy" })
+@ImportResource(locations = {"classpath:/deployerConfigContext.xml", "classpath:/deployerConfigContext.groovy"})
 public class AccountApplication extends SpringBootServletInitializer {
-	public static void main(final String[] args) {
-		SpringApplication.run(AccountApplication.class, args);
-	}
+    public static void main(final String[] args) {
+        SpringApplication.run(AccountApplication.class, args);
+    }
 
-	@Override
-	protected SpringApplicationBuilder configure(final SpringApplicationBuilder builder) {
-		return builder.sources(AccountApplication.class);
-	}
+    @Override
+    protected SpringApplicationBuilder configure(final SpringApplicationBuilder builder) {
+        return builder.sources(AccountApplication.class);
+    }
 }
