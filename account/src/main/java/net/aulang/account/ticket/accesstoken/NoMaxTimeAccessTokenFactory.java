@@ -1,7 +1,11 @@
 package net.aulang.account.ticket.accesstoken;
 
+import org.apereo.cas.authentication.Authentication;
+import org.apereo.cas.authentication.principal.Service;
 import org.apereo.cas.ticket.ExpirationPolicy;
+import org.apereo.cas.ticket.TicketGrantingTicket;
 import org.apereo.cas.ticket.UniqueTicketIdGenerator;
+import org.apereo.cas.ticket.accesstoken.AccessToken;
 import org.apereo.cas.ticket.accesstoken.DefaultAccessTokenFactory;
 
 public class NoMaxTimeAccessTokenFactory extends DefaultAccessTokenFactory {
@@ -11,5 +15,10 @@ public class NoMaxTimeAccessTokenFactory extends DefaultAccessTokenFactory {
 
     public NoMaxTimeAccessTokenFactory(UniqueTicketIdGenerator refreshTokenIdGenerator, ExpirationPolicy expirationPolicy) {
         super(refreshTokenIdGenerator, expirationPolicy);
+    }
+
+    @Override
+    public AccessToken create(Service service, Authentication authentication, TicketGrantingTicket ticketGrantingTicket) {
+        return super.create(service, authentication, ticketGrantingTicket);
     }
 }

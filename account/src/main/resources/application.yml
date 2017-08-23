@@ -44,7 +44,7 @@ cas:
       refreshToken:
         timeToKillInSeconds: 7776000
       accessToken:
-        timeToKillInSeconds: 28800
+        timeToKillInSeconds: 2592000
         maxTimeToLiveInSeconds: 2592000
   serviceRegistry:
     initFromJson: true

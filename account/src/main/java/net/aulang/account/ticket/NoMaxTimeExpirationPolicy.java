@@ -22,9 +22,10 @@ public class NoMaxTimeExpirationPolicy extends AbstractCasExpirationPolicy {
 
     @Override
     public boolean isExpired(TicketState ticketState) {
-        final ZonedDateTime currentSystemTime = ZonedDateTime.now(ZoneOffset.UTC);
+        ZonedDateTime lastTimeUsed = ticketState.getLastTimeUsed();
+        ZonedDateTime currentSystemTime = ZonedDateTime.now(ZoneOffset.UTC);
 
-        ZonedDateTime expirationTime = ticketState.getLastTimeUsed().plus(getTimeToLive(), ChronoUnit.SECONDS);
+        ZonedDateTime expirationTime = lastTimeUsed.plus(this.timeToKillInSeconds, ChronoUnit.SECONDS);
         if (currentSystemTime.isAfter(expirationTime)) {
             LOGGER.debug("Access token is expired because the time since last use is greater than timeToKillInSeconds");
             return true;
