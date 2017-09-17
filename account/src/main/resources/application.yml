@@ -34,11 +34,6 @@ cas:
       timeToKillInSeconds: 20
     tgt:
       timeToKillInSeconds: 28800
-    registry:
-      redis:
-        host: 127.0.0.1
-        port: 6379
-        timeout: 10000
   authn:
     oauth:
       refreshToken:
@@ -80,3 +75,7 @@ spring:
   data:
     mongodb:
       uri: mongodb://127.0.0.1:27017/account
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 10000

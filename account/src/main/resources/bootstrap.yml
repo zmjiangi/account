@@ -5,10 +5,6 @@ spring:
       server:
         bootstrap: true
         prefix: /status/config
-  profiles:
-    active: native
-  jmx:
-    default-domain: server
 eureka:
   client:
     service-url:

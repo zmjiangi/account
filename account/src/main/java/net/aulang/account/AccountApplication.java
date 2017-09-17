@@ -14,12 +14,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @EnableAsync
 @EnableScheduling
 @EnableDiscoveryClient
-@EnableRedisHttpSession
 @SpringBootApplication(exclude = {
         JerseyAutoConfiguration.class,
         DataSourceAutoConfiguration.class,
