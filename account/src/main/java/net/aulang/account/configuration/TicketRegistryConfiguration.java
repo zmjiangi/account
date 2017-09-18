@@ -9,6 +9,9 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 
 @Configuration
 public class TicketRegistryConfiguration {
+    /**
+     * Redis TicketRegistry
+     */
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
 
@@ -21,4 +24,20 @@ public class TicketRegistryConfiguration {
     public RedisTicketRegistry ticketRegistry() {
         return new RedisTicketRegistry(ticketRedisTemplate());
     }
+
+    /**
+     * MongoDB TicketRegistry
+     */
+    /*@Autowired
+    private MongoTemplate mongoTemplate;
+
+    @Bean
+    public TicketRegistry ticketRegistry() throws Exception {
+        return new MongoDbTicketRegistry(mongoTemplate);
+    }
+
+    @Bean
+    public TicketRegistryCleaner ticketRegistryCleaner() {
+        return new NoOpTicketRegistryCleaner();
+    }*/
 }

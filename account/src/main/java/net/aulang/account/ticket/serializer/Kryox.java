@@ -50,4 +50,16 @@ public class Kryox extends Kryo {
             throw new RuntimeException(e);
         }
     }
+
+    private static final ThreadLocal<Kryox> KRYO = ThreadLocal.withInitial(() -> {
+        Kryox kryo = new Kryox();
+        /**
+         * 自定义设置
+         */
+        return kryo;
+    });
+
+    public static Kryox getInstance() {
+        return KRYO.get();
+    }
 }
