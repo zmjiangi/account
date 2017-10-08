@@ -1,5 +1,8 @@
 package net.aulang.account.restcontroller;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
 import net.aulang.account.manage.AccountBiz;
 import net.aulang.account.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,9 @@ public class InitialRestController {
     @Autowired
     private AccountBiz accountBiz;
 
+    @ApiOperation("初始化用户信息")
+    @ApiImplicitParam(name = "name", value = "初始化账号名", required = true, paramType = "query", dataType = "String")
+    @ApiResponse(code = 200, message = "success：成功；fail：失败")
     @GetMapping(path = "/inituser", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String init(String name) {
         if ("aulang".equals(name)) {

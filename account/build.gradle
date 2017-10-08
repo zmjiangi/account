@@ -46,7 +46,10 @@ dependencies {
             "org.apereo.cas:cas-server-support-throttle:${casVersion}",
             "org.apereo.cas:cas-server-support-validation:${casVersion}",
             "org.apereo.cas:cas-server-support-oauth-webflow:${casVersion}",
-            "org.apereo.cas:cas-server-webapp-config:${casVersion}"
+            "org.apereo.cas:cas-server-webapp-config:${casVersion}",
+
+            'io.springfox:springfox-swagger2:2.7.0',
+            'io.springfox:springfox-swagger-ui:2.7.0'
 
     )
 }
