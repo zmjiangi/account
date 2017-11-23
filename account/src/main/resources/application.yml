@@ -4,7 +4,7 @@ server:
     timeout: 1800
     tracking-modes: cookie
     cookie:
-      secure: false
+      secure: true
       http-only: true
   use-forward-headers: true
   tomcat:
@@ -14,44 +14,6 @@ server:
     protocol-header-https-value: https
     remote-ip-header: X-Forwarded-For
     uri-encoding: UTF-8
-cas:
-  locale:
-    defaultValue: zh_CN
-  server:
-    ajp:
-      enabled: false
-    http:
-      enabled: false
-    prefix: https://account.aulang.net
-  tgc:
-    secure: false
-  warningCookie:
-    secure: false
-  logout:
-    followServiceRedirects: true
-  ticket:
-    st:
-      timeToKillInSeconds: 20
-    tgt:
-      timeToKillInSeconds: 28800
-  authn:
-    oauth:
-      refreshToken:
-        timeToKillInSeconds: 7776000
-      accessToken:
-        timeToKillInSeconds: 2592000
-        maxTimeToLiveInSeconds: 2592000
-  serviceRegistry:
-    initFromJson: true
-    startDelay: 20000
-    repeatInterval: 600000
-captcha:
-  kaptcha.border: 'no'
-  kaptcha.textproducer.font.color: blue
-  kaptcha.textproducer.font.size: '60'
-  kaptcha.textproducer.char.length: '4'
-  kaptcha.image.width: '200'
-  kaptcha.image.height: '80'
 spring:
   application:
     name: account
@@ -65,9 +27,6 @@ spring:
   aop:
     auto: true
     proxy-target-class: true
-  cloud:
-    bus:
-      enabled: false
   thymeleaf:
     mode: HTML
     cache: true
