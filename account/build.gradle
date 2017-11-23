@@ -2,9 +2,8 @@ archivesBaseName = 'account'
 
 buildscript {
     ext {
-        casVersion = '5.1.2'
-        springBootVersion = '1.5.6.RELEASE'
-        springCloudVersion = 'Dalston.SR3'
+        springBootVersion = '1.5.8.RELEASE'
+        springCloudVersion = 'Dalston.SR4'
     }
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
@@ -30,27 +29,12 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-data-redis',
             'org.springframework.cloud:spring-cloud-starter-eureka',
 
-            'org.thymeleaf:thymeleaf:3.0.5.RELEASE',
-            'org.thymeleaf:thymeleaf-spring4:3.0.5.RELEASE',
-            'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.0.5',
-
-            'com.esotericsoftware:kryo:4.0.1',
-            'com.github.penggle:kaptcha:2.3.2',
-
-            "org.apereo.cas:cas-server-core:${casVersion}",
-            "org.apereo.cas:cas-server-core-audit:${casVersion}",
-            "org.apereo.cas:cas-server-core-logging:${casVersion}",
-            "org.apereo.cas:cas-server-support-actions:${casVersion}",
-            "org.apereo.cas:cas-server-support-cookie:${casVersion}",
-            "org.apereo.cas:cas-server-support-themes:${casVersion}",
-            "org.apereo.cas:cas-server-support-throttle:${casVersion}",
-            "org.apereo.cas:cas-server-support-validation:${casVersion}",
-            "org.apereo.cas:cas-server-support-oauth-webflow:${casVersion}",
-            "org.apereo.cas:cas-server-webapp-config:${casVersion}",
+            'org.thymeleaf:thymeleaf:3.0.9.RELEASE',
+            'org.thymeleaf:thymeleaf-spring4:3.0.9.RELEASE',
+            'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.2.2',
 
             'io.springfox:springfox-swagger2:2.7.0',
             'io.springfox:springfox-swagger-ui:2.7.0'
-
     )
 }
 
