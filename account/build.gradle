@@ -26,7 +26,6 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-web',
             'org.springframework.boot:spring-boot-starter-thymeleaf',
             'org.springframework.boot:spring-boot-starter-data-mongodb',
-            'org.springframework.boot:spring-boot-starter-data-redis',
             'org.springframework.cloud:spring-cloud-starter-eureka',
 
             'org.thymeleaf:thymeleaf:3.0.9.RELEASE',
