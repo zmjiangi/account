@@ -2,8 +2,8 @@ archivesBaseName = 'account'
 
 buildscript {
     ext {
-        springBootVersion = '1.5.8.RELEASE'
-        springCloudVersion = 'Dalston.SR4'
+        springBootVersion = '1.5.9.RELEASE'
+        springCloudVersion = 'Edgware.RELEASE'
     }
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
@@ -13,11 +13,11 @@ buildscript {
     }
 }
 
+apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 
 configurations {
     all*.exclude group: 'ch.qos.logback', module: 'logback-classic'
-    all*.exclude group: 'org.springframework.boot', module: 'spring-boot-devtools'
 }
 
 dependencies {
@@ -26,14 +26,11 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-web',
             'org.springframework.boot:spring-boot-starter-thymeleaf',
             'org.springframework.boot:spring-boot-starter-data-mongodb',
+            'org.springframework.cloud:spring-cloud-starter-config',
             'org.springframework.cloud:spring-cloud-starter-eureka',
 
             'org.thymeleaf:thymeleaf:3.0.9.RELEASE',
             'org.thymeleaf:thymeleaf-spring4:3.0.9.RELEASE',
-            'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.2.2',
-
-            'io.springfox:springfox-swagger2:2.7.0',
-            'io.springfox:springfox-swagger-ui:2.7.0',
 
             'org.apache.commons:commons-lang3:3.7',
             'commons-validator:commons-validator:1.6'

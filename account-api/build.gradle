@@ -11,5 +11,5 @@ artifacts {
 }
 
 dependencies {
-    compileOnly 'org.springframework.data:spring-data-mongodb:2.0.1.RELEASE'
+    compileOnly 'org.springframework.data:spring-data-mongodb:2.0.2.RELEASE'
 }
