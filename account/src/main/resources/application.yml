@@ -14,6 +14,7 @@ server:
     protocol-header-https-value: https
     remote-ip-header: X-Forwarded-For
     uri-encoding: UTF-8
+
 spring:
   application:
     name: account
@@ -22,15 +23,14 @@ spring:
       charset: UTF-8
       enabled: true
       force: true
-  mvc:
-    locale: zh_CN
   aop:
     auto: true
     proxy-target-class: true
-  thymeleaf:
-    mode: HTML
-    cache: true
-    encoding: UTF-8
   data:
     mongodb:
       uri: mongodb://127.0.0.1:27017/account
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8088/eureka/

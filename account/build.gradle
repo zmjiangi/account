@@ -29,9 +29,6 @@ dependencies {
             'org.springframework.cloud:spring-cloud-starter-config',
             'org.springframework.cloud:spring-cloud-starter-eureka',
 
-            'org.thymeleaf:thymeleaf:3.0.9.RELEASE',
-            'org.thymeleaf:thymeleaf-spring4:3.0.9.RELEASE',
-
             'org.apache.commons:commons-lang3:3.7',
             'commons-validator:commons-validator:1.6'
     )
