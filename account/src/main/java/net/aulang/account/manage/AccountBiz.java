@@ -6,8 +6,8 @@ import net.aulang.account.service.AccountService;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.LongValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,7 +16,7 @@ public class AccountBiz implements AccountService {
     private AccountRepository dao;
     private LongValidator longValidator = LongValidator.getInstance();
     private EmailValidator emailValidator = EmailValidator.getInstance();
-    private PasswordEncoder passwordEncoder = new StandardPasswordEncoder();
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     private Account save(Account account) {
         return dao.save(account);
@@ -24,7 +24,7 @@ public class AccountBiz implements AccountService {
 
     @Override
     public Account get(String id) {
-        return dao.findOne(id);
+        return dao.findById(id).get();
     }
 
     public Account getByLoginName(String loginName) {
