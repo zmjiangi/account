@@ -1,8 +1,9 @@
-package net.aulang.account.model;
+package net.aulang.account.document;
 
 import net.aulang.account.common.AccountStatus;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.Map;
  *
  * @author Aulang
  */
+@Document
 public class Account implements Serializable {
     private static final long serialVersionUID = 1L;
 

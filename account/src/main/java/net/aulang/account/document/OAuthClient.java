@@ -2,35 +2,27 @@ package net.aulang.account.document;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
 
 import java.util.*;
 
+@Document
 public class OAuthClient implements ClientDetails {
     @Id
     private String id;
-    @Field("client_id")
     @Indexed(unique = true, sparse = true)
     private String clientId;
-    @Field("client_secret")
     private String clientSecret;
-    @Field("redirect_uri")
     private Set<String> registeredRedirectUri;
     private Set<String> scope = Collections.emptySet();
-    @Field("resource_ids")
     private Set<String> resourceIds = Collections.emptySet();
-    @Field("authorized_grant_types")
     private Set<String> authorizedGrantTypes = Collections.emptySet();
-    @Field("auto_approve_scopes")
     private Set<String> autoApproveScopes;
     private Set<GrantedAuthority> authorities = Collections.emptySet();
-    @Field("access_token_validity")
     private Integer accessTokenValiditySeconds;
-    @Field("refresh_token_validity")
     private Integer refreshTokenValiditySeconds;
-    @Field("additional_information")
     private Map<String, Object> additionalInformation = new LinkedHashMap<>();
 
     public String getId() {
@@ -111,8 +103,7 @@ public class OAuthClient implements ClientDetails {
     }
 
     public void setAutoApproveScopes(Set<String> autoApproveScopes) {
-        this.autoApproveScopes = autoApproveScopes == null ? Collections.emptySet() :
-                new LinkedHashSet<>(autoApproveScopes);
+        this.autoApproveScopes = autoApproveScopes == null ? Collections.emptySet() : new LinkedHashSet<>(autoApproveScopes);
     }
 
     @Override

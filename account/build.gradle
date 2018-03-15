@@ -23,10 +23,12 @@ dependencies {
     compile project(':account-api')
     compile(
             "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-security:${springBootVersion}",
             "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}",
             "org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}",
             'org.springframework.security.oauth:spring-security-oauth2:2.2.1.RELEASE',
 
+            'commons-io:commons-io:2.6',
             'org.apache.commons:commons-lang3:3.7',
             'commons-validator:commons-validator:1.6'
     )

@@ -1,8 +1,7 @@
 package net.aulang.account.manage;
 
-import net.aulang.account.model.Account;
+import net.aulang.account.document.Account;
 import net.aulang.account.repository.AccountRepository;
-import net.aulang.account.service.AccountService;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.LongValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AccountBiz implements AccountService {
+public class AccountBiz {
     @Autowired
     private AccountRepository dao;
     private LongValidator longValidator = LongValidator.getInstance();
@@ -22,9 +21,8 @@ public class AccountBiz implements AccountService {
         return dao.save(account);
     }
 
-    @Override
     public Account get(String id) {
-        return dao.findById(id).get();
+        return dao.findOne(id);
     }
 
     public Account getByLoginName(String loginName) {
@@ -37,7 +35,6 @@ public class AccountBiz implements AccountService {
         }
     }
 
-    @Override
     public Account login(String loginName, String password) {
         Account account = getByLoginName(loginName);
         if (account != null) {
@@ -48,7 +45,6 @@ public class AccountBiz implements AccountService {
         return null;
     }
 
-    @Override
     public Account register(Account account) {
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         return save(account);
@@ -61,9 +57,5 @@ public class AccountBiz implements AccountService {
             return save(account);
         }
         return null;
-    }
-
-    public long count() {
-        return dao.count();
     }
 }
