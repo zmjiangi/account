@@ -25,4 +25,18 @@ public class AccountTokenBiz {
 
         return token;
     }
+
+    public AccountToken findByAccountIdAndClientId(String accountId, String clientId) {
+        AccountToken token = dao.findByAccountIdAndClientId(accountId, clientId);
+
+        return token;
+    }
+
+    public void deleteByAccessToken(String accessToken) {
+        AccountToken token = dao.findByAccessToken(accessToken);
+
+        if (token != null) {
+            dao.delete(token);
+        }
+    }
 }

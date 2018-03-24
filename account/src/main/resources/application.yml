@@ -9,7 +9,7 @@ server:
         http-only: true
   use-forward-headers: true
   tomcat:
-    max-threads: 5
+    max-threads: 8
     port-header: X-Forwarded-Port
     protocol-header: X-Forwarded-Proto
     protocol-header-https-value: https

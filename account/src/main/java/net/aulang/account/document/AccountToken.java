@@ -14,8 +14,8 @@ import java.util.Set;
 @Document
 @CompoundIndexes({
         @CompoundIndex(
-                name = "idx_accountId_clientId",
                 unique = true,
+                name = "idx_accountId_clientId",
                 def = "{'accountId':1, 'clientId':1}"
         )
 })
