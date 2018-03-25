@@ -34,7 +34,6 @@ public class AccountToken implements Serializable {
     private String clientId;
     private Set<String> scope;
     private String redirectUri;
-    private String tokenType;
     private String accountId;
 
     private Date creationDate;
@@ -102,14 +101,6 @@ public class AccountToken implements Serializable {
 
     public void setRedirectUri(String redirectUri) {
         this.redirectUri = redirectUri;
-    }
-
-    public String getTokenType() {
-        return tokenType;
-    }
-
-    public void setTokenType(String tokenType) {
-        this.tokenType = tokenType;
     }
 
     public String getAccountId() {

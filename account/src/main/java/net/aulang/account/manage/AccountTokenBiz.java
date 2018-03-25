@@ -51,6 +51,28 @@ public class AccountTokenBiz {
         return dao.findByAccountIdAndClientIdAndRedirectUri(accountId, clientId, redirectUri);
     }
 
+    public AccountToken refreshAccessToken(String refreshToken, String newAccessToken) {
+        AccountToken accountToken = dao.findByRefreshToken(refreshToken);
+
+        if (accountToken == null) {
+            return null;
+        }
+        accountToken.setAccessToken(newAccessToken);
+
+        OAuthClient client = clientBiz.findByClientId(accountToken.getClientId());
+
+        Calendar calendar = Calendar.getInstance();
+        accountToken.setCreationDate(calendar.getTime());
+
+        calendar.add(Calendar.SECOND, client.getAccessTokenValiditySeconds());
+        accountToken.setAccessTokenExpiration(calendar.getTime());
+
+        calendar.add(Calendar.SECOND, client.getRefreshTokenValiditySeconds());
+        accountToken.setRefreshTokenExpiration(calendar.getTime());
+
+        return save(accountToken);
+    }
+
     public void deleteByAccessToken(String accessToken) {
         AccountToken token = dao.findByAccessToken(accessToken);
 
@@ -99,7 +121,6 @@ public class AccountTokenBiz {
     public AccountToken create(
             String accessToken,
             String refreshToken,
-            String tokenType,
             String clientId,
             Set<String> scope,
             String redirectUri,
@@ -111,7 +132,6 @@ public class AccountTokenBiz {
         accountToken.setClientId(clientId);
         accountToken.setRedirectUri(redirectUri);
         accountToken.setAccountId(accountId);
-        accountToken.setTokenType(tokenType);
         accountToken.setAccessToken(accessToken);
         accountToken.setRefreshToken(refreshToken);
 

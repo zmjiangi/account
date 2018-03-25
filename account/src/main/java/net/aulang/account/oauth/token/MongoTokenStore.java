@@ -3,6 +3,7 @@ package net.aulang.account.oauth.token;
 import net.aulang.account.document.AccountToken;
 import net.aulang.account.manage.AccountTokenBiz;
 import net.aulang.account.oauth.AccountIdAuthentication;
+import net.aulang.account.util.StrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.DefaultOAuth2RefreshToken;
@@ -30,7 +31,6 @@ public class MongoTokenStore implements TokenStore {
         DefaultOAuth2AccessToken accessToken = new DefaultOAuth2AccessToken(accountToken.getAccessToken());
 
         accessToken.setExpiration(accountToken.getAccessTokenExpiration());
-        accessToken.setTokenType(accountToken.getTokenType());
         accessToken.setScope(accountToken.getScope());
 
         if (accountToken.getRefreshToken() != null) {
@@ -75,14 +75,15 @@ public class MongoTokenStore implements TokenStore {
 
     @Override
     public void storeAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication) {
-        String refreshToken = null;
+        String refreshToken;
         if (token.getRefreshToken() != null) {
             refreshToken = token.getRefreshToken().getValue();
+        } else {
+            refreshToken = StrUtils.UUID();
         }
 
         tokenBiz.create(
                 token.getValue(),
-                token.getTokenType(),
                 refreshToken,
                 authentication.getOAuth2Request().getClientId(),
                 authentication.getOAuth2Request().getScope(),
@@ -101,6 +102,11 @@ public class MongoTokenStore implements TokenStore {
     @Override
     public void removeAccessToken(OAuth2AccessToken token) {
         tokenBiz.deleteByAccessToken(token.getValue());
+    }
+
+    public OAuth2AccessToken refreshAccessToken(String refreshToken, String newAccessToken) {
+        AccountToken accountToken = tokenBiz.refreshAccessToken(refreshToken, newAccessToken);
+        return toAccessToken(accountToken);
     }
 
     @Override
