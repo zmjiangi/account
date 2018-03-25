@@ -15,8 +15,8 @@ import java.util.Set;
 @CompoundIndexes({
         @CompoundIndex(
                 unique = true,
-                name = "idx_accountId_clientId",
-                def = "{'accountId':1, 'clientId':1}"
+                name = "idx_accountId_clientId_redirectUri",
+                def = "{'accountId':1, 'clientId':1, 'redirectUri':1}"
         )
 })
 public class AccountToken implements Serializable {
@@ -33,6 +33,7 @@ public class AccountToken implements Serializable {
 
     private String clientId;
     private Set<String> scope;
+    private String redirectUri;
     private String tokenType;
     private String accountId;
 
@@ -93,6 +94,14 @@ public class AccountToken implements Serializable {
 
     public void setScope(Set<String> scope) {
         this.scope = scope;
+    }
+
+    public String getRedirectUri() {
+        return redirectUri;
+    }
+
+    public void setRedirectUri(String redirectUri) {
+        this.redirectUri = redirectUri;
     }
 
     public String getTokenType() {

@@ -2,25 +2,65 @@ package net.aulang.account.oauth.token;
 
 import net.aulang.account.document.AccountToken;
 import net.aulang.account.manage.AccountTokenBiz;
+import net.aulang.account.oauth.AccountIdAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.DefaultOAuth2RefreshToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Component;
 
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
+import java.util.List;
 
 @Component
 public class MongoTokenStore implements TokenStore {
-    private static final int REFRESHTOKEN_VALID_MONTHS = 3;
-
     @Autowired
     private AccountTokenBiz tokenBiz;
+
+    private OAuth2AccessToken toAccessToken(AccountToken accountToken) {
+        if (accountToken == null) {
+            return null;
+        }
+
+        DefaultOAuth2AccessToken accessToken = new DefaultOAuth2AccessToken(accountToken.getAccessToken());
+
+        accessToken.setExpiration(accountToken.getAccessTokenExpiration());
+        accessToken.setTokenType(accountToken.getTokenType());
+        accessToken.setScope(accountToken.getScope());
+
+        if (accountToken.getRefreshToken() != null) {
+            accessToken.setRefreshToken(new DefaultOAuth2RefreshToken(accountToken.getRefreshToken()));
+        }
+
+        return accessToken;
+    }
+
+    private OAuth2Authentication toAuthentication(AccountToken accountToken) {
+        if (accountToken == null) {
+            return null;
+        }
+
+        OAuth2Request storedRequest = new OAuth2Request(
+                null,
+                accountToken.getClientId(),
+                null,
+                true,
+                accountToken.getScope(),
+                null,
+                accountToken.getRedirectUri(),
+                null,
+                null
+        );
+
+        AccountIdAuthentication authentication = new AccountIdAuthentication(accountToken.getAccountId());
+
+        return new OAuth2Authentication(storedRequest, authentication);
+    }
 
     @Override
     public OAuth2Authentication readAuthentication(OAuth2AccessToken token) {
@@ -30,65 +70,27 @@ public class MongoTokenStore implements TokenStore {
     @Override
     public OAuth2Authentication readAuthentication(String token) {
         AccountToken accountToken = tokenBiz.findByAccessToken(token);
-        if (accountToken == null) {
-            return null;
-        }
-
-        return null;
+        return toAuthentication(accountToken);
     }
 
     @Override
     public void storeAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication) {
-        AccountToken accountToken = new AccountToken();
-
-        accountToken.setScope(token.getScope());
-        accountToken.setAccessToken(token.getValue());
-        accountToken.setTokenType(token.getTokenType());
-
-        Calendar calendar = Calendar.getInstance();
-
-        Date date = token.getExpiration();
-        if (date != null) {
-            calendar.setTime(date);
-        } else {
-            calendar.add(Calendar.SECOND, token.getExpiresIn());
-        }
-        accountToken.setAccessTokenExpiration(calendar.getTime());
-
-        calendar.add(Calendar.MONTH, REFRESHTOKEN_VALID_MONTHS);
-        accountToken.setRefreshTokenExpiration(calendar.getTime());
-
-        OAuth2RefreshToken refreshToken = token.getRefreshToken();
-        if (refreshToken != null) {
-            accountToken.setRefreshToken(refreshToken.getValue());
-        }
-
-        accountToken.setClientId(authentication.getOAuth2Request().getClientId());
-        accountToken.setAccountId(authentication.getUserAuthentication().getName());
-
-        accountToken.setCreationDate(new Date());
-
-        tokenBiz.save(accountToken);
+        tokenBiz.create(
+                token.getValue(),
+                token.getTokenType(),
+                token.getRefreshToken().getValue(),
+                authentication.getOAuth2Request().getClientId(),
+                authentication.getOAuth2Request().getScope(),
+                authentication.getOAuth2Request().getRedirectUri(),
+                authentication.getUserAuthentication().getName(),
+                true
+        );
     }
 
     @Override
     public OAuth2AccessToken readAccessToken(String tokenValue) {
         AccountToken accountToken = tokenBiz.findByAccessToken(tokenValue);
-        if (accountToken == null) {
-            return null;
-        }
-
-        DefaultOAuth2AccessToken accessToken = new DefaultOAuth2AccessToken(accountToken.getAccessToken());
-
-        accessToken.setScope(accountToken.getScope());
-        accessToken.setTokenType(accountToken.getTokenType());
-        accessToken.setExpiration(accountToken.getAccessTokenExpiration());
-
-        if (accountToken.getRefreshToken() != null) {
-            accessToken.setRefreshToken(new DefaultOAuth2RefreshToken(accountToken.getRefreshToken()));
-        }
-
-        return accessToken;
+        return toAccessToken(accountToken);
     }
 
     @Override
@@ -98,16 +100,12 @@ public class MongoTokenStore implements TokenStore {
 
     @Override
     public void storeRefreshToken(OAuth2RefreshToken refreshToken, OAuth2Authentication authentication) {
-        AccountToken accountToken = tokenBiz.findByAccountIdAndClientId(
+        tokenBiz.updateRefreshToken(
                 authentication.getUserAuthentication().getName(),
-                authentication.getOAuth2Request().getClientId()
+                authentication.getOAuth2Request().getClientId(),
+                authentication.getOAuth2Request().getRedirectUri(),
+                refreshToken.getValue()
         );
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MONTH, REFRESHTOKEN_VALID_MONTHS);
-
-        accountToken.setRefreshToken(refreshToken.getValue());
-        accountToken.setRefreshTokenExpiration(calendar.getTime());
-        tokenBiz.save(accountToken);
     }
 
     @Override
@@ -116,37 +114,50 @@ public class MongoTokenStore implements TokenStore {
         if (accountToken == null) {
             return null;
         }
-
         return new DefaultOAuth2RefreshToken(tokenValue);
     }
 
     @Override
     public OAuth2Authentication readAuthenticationForRefreshToken(OAuth2RefreshToken token) {
-        return null;
+        AccountToken accountToken = tokenBiz.findByRefreshToken(token.getValue());
+        return toAuthentication(accountToken);
     }
 
     @Override
     public void removeRefreshToken(OAuth2RefreshToken token) {
-
+        tokenBiz.removeRefreshToken(token.getValue());
     }
 
     @Override
     public void removeAccessTokenUsingRefreshToken(OAuth2RefreshToken refreshToken) {
-
+        tokenBiz.deleteByRefreshToken(refreshToken.getValue());
     }
 
     @Override
     public OAuth2AccessToken getAccessToken(OAuth2Authentication authentication) {
-        return null;
+        AccountToken accountToken = tokenBiz.findByAccountIdAndClientId(
+                authentication.getUserAuthentication().getName(),
+                authentication.getOAuth2Request().getClientId(),
+                authentication.getOAuth2Request().getRedirectUri()
+        );
+        return toAccessToken(accountToken);
     }
 
     @Override
     public Collection<OAuth2AccessToken> findTokensByClientIdAndUserName(String clientId, String userName) {
-        return null;
+        List<OAuth2AccessToken> accessTokens = new ArrayList<>();
+        tokenBiz.findByAccountIdAndClientId(userName, clientId).parallelStream().forEach(
+                e -> accessTokens.add(toAccessToken(e))
+        );
+        return accessTokens;
     }
 
     @Override
     public Collection<OAuth2AccessToken> findTokensByClientId(String clientId) {
-        return null;
+        List<OAuth2AccessToken> accessTokens = new ArrayList<>();
+        tokenBiz.finbByClientId(clientId).parallelStream().forEach(
+                e -> accessTokens.add(toAccessToken(e))
+        );
+        return accessTokens;
     }
 }
