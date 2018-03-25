@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Service
 public class OAuthCodeBiz {
-    private int validitySeconds = 20;
+    private int validitySeconds = 300;
 
     @Autowired
     private OAuthCodeRepository dao;

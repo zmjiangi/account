@@ -6,7 +6,10 @@ import net.aulang.account.oauth.provider.OAuthClientService;
 import net.aulang.account.oauth.provider.OAuthTokenService;
 import net.aulang.account.oauth.token.MongoTokenStore;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.authserver.AuthorizationServerProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -15,9 +18,15 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 
 @Configuration
 @EnableAuthorizationServer
-public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
+@EnableConfigurationProperties(AuthorizationServerProperties.class)
+public class OAuthServerConfiguration extends AuthorizationServerConfigurerAdapter {
     @Autowired
-    private AccountDetailsService accountDetailsService;
+    private AuthorizationServerProperties properties;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private AccountDetailsService userDetailsService;
     @Autowired
     private OAuthClientService clientService;
     @Autowired
@@ -29,7 +38,15 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        super.configure(security);
+        if (properties.getCheckTokenAccess() != null) {
+            security.checkTokenAccess(properties.getCheckTokenAccess());
+        }
+        if (properties.getTokenKeyAccess() != null) {
+            security.tokenKeyAccess(properties.getTokenKeyAccess());
+        }
+        if (properties.getRealm() != null) {
+            security.realm(properties.getRealm());
+        }
     }
 
     @Override
@@ -39,9 +56,10 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.userDetailsService(accountDetailsService);
-        endpoints.authorizationCodeServices(codeService);
-        endpoints.tokenServices(tokenService);
-        endpoints.tokenStore(tokenStore);
+        endpoints.authenticationManager(authenticationManager)
+                .userDetailsService(userDetailsService)
+                .authorizationCodeServices(codeService)
+                .tokenServices(tokenService)
+                .tokenStore(tokenStore);
     }
 }

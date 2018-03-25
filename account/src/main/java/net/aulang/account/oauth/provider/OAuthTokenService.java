@@ -3,6 +3,7 @@ package net.aulang.account.oauth.provider;
 import net.aulang.account.oauth.token.MongoTokenStore;
 import net.aulang.account.util.StrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
@@ -15,6 +16,7 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 import org.springframework.stereotype.Service;
 
 @Service
+@Primary
 public class OAuthTokenService implements AuthorizationServerTokenServices {
     @Autowired
     private MongoTokenStore tokenStore;
