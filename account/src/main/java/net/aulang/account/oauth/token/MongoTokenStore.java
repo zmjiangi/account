@@ -140,7 +140,7 @@ public class MongoTokenStore implements TokenStore {
 
     @Override
     public OAuth2AccessToken getAccessToken(OAuth2Authentication authentication) {
-        AccountToken accountToken = tokenBiz.findByAccountIdAndClientId(
+        AccountToken accountToken = tokenBiz.findByAccountIdAndClientIdAndRedirectUri(
                 authentication.getUserAuthentication().getName(),
                 authentication.getOAuth2Request().getClientId(),
                 authentication.getOAuth2Request().getRedirectUri()

@@ -18,6 +18,16 @@ public class AccountTokenBiz {
     private OAuthClientBiz clientBiz;
 
     public AccountToken save(AccountToken token) {
+        AccountToken accountToken = findByAccountIdAndClientIdAndRedirectUri(
+                token.getAccountId(),
+                token.getClientId(),
+                token.getRedirectUri()
+        );
+
+        if (accountToken != null) {
+            token.setId(accountToken.getId());
+        }
+
         return dao.save(token);
     }
 
@@ -37,7 +47,7 @@ public class AccountTokenBiz {
         return dao.findByAccountIdAndClientId(accountId, clientId);
     }
 
-    public AccountToken findByAccountIdAndClientId(String accountId, String clientId, String redirectUri) {
+    public AccountToken findByAccountIdAndClientIdAndRedirectUri(String accountId, String clientId, String redirectUri) {
         return dao.findByAccountIdAndClientIdAndRedirectUri(accountId, clientId, redirectUri);
     }
 
@@ -58,7 +68,7 @@ public class AccountTokenBiz {
     }
 
     public AccountToken updateRefreshToken(String accountId, String clientId, String redirectUri, String refreshToken) {
-        AccountToken accountToken = findByAccountIdAndClientId(accountId, clientId, redirectUri);
+        AccountToken accountToken = findByAccountIdAndClientIdAndRedirectUri(accountId, clientId, redirectUri);
         if (accountToken == null) {
             return null;
         }
