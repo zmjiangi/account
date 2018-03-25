@@ -1,6 +1,9 @@
 package net.aulang.account.configuration;
 
+import net.aulang.account.oauth.AccountDetailsService;
+import net.aulang.account.oauth.provider.AuthCodeService;
 import net.aulang.account.oauth.provider.OAuthClientService;
+import net.aulang.account.oauth.token.MongoTokenStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -12,9 +15,14 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
-
+    @Autowired
+    private AccountDetailsService accountDetailsService;
     @Autowired
     private OAuthClientService clientService;
+    @Autowired
+    private AuthCodeService codeService;
+    @Autowired
+    private MongoTokenStore tokenStore;
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
@@ -28,6 +36,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        super.configure(endpoints);
+        endpoints.userDetailsService(accountDetailsService);
+        endpoints.authorizationCodeServices(codeService);
+        endpoints.tokenStore(tokenStore);
     }
 }

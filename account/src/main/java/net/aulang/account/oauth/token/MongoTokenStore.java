@@ -75,10 +75,15 @@ public class MongoTokenStore implements TokenStore {
 
     @Override
     public void storeAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication) {
+        String refreshToken = null;
+        if (token.getRefreshToken() != null) {
+            refreshToken = token.getRefreshToken().getValue();
+        }
+
         tokenBiz.create(
                 token.getValue(),
                 token.getTokenType(),
-                token.getRefreshToken().getValue(),
+                refreshToken,
                 authentication.getOAuth2Request().getClientId(),
                 authentication.getOAuth2Request().getScope(),
                 authentication.getOAuth2Request().getRedirectUri(),
