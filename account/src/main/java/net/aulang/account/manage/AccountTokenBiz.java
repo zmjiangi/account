@@ -4,9 +4,12 @@ import net.aulang.account.document.AccountToken;
 import net.aulang.account.document.OAuthClient;
 import net.aulang.account.repository.AccountTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
+import org.springframework.security.oauth2.provider.NoSuchClientException;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -57,6 +60,12 @@ public class AccountTokenBiz {
         if (accountToken == null) {
             return null;
         }
+
+        Date refreshTokenExpiration = accountToken.getRefreshTokenExpiration();
+        if (refreshTokenExpiration != null && refreshTokenExpiration.before(new Date())) {
+            throw new InvalidTokenException("令牌已过期");
+        }
+
         accountToken.setAccessToken(newAccessToken);
 
         OAuthClient client = clientBiz.findByClientId(accountToken.getClientId());
@@ -137,6 +146,9 @@ public class AccountTokenBiz {
 
 
         OAuthClient client = clientBiz.findByClientId(clientId);
+        if (client == null) {
+            throw new NoSuchClientException("客户端不存在");
+        }
 
         Calendar calendar = Calendar.getInstance();
         accountToken.setCreationDate(calendar.getTime());

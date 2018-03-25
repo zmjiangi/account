@@ -3,7 +3,7 @@ package net.aulang.account.configuration;
 import net.aulang.account.oauth.AccountDetailsService;
 import net.aulang.account.oauth.provider.AuthCodeService;
 import net.aulang.account.oauth.provider.OAuthClientService;
-import net.aulang.account.oauth.token.MongoTokenService;
+import net.aulang.account.oauth.provider.OAuthTokenService;
 import net.aulang.account.oauth.token.MongoTokenStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Autowired
     private OAuthClientService clientService;
     @Autowired
-    private MongoTokenService tokenService;
+    private OAuthTokenService tokenService;
     @Autowired
     private AuthCodeService codeService;
     @Autowired

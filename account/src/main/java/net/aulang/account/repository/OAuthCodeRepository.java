@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OAuthCodeRepository extends MongoRepository<OAuthCode, String> {
 
+    OAuthCode findByCode(String code);
+
 }

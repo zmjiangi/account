@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.ClientRegistrationException;
+import org.springframework.security.oauth2.provider.NoSuchClientException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +18,7 @@ public class OAuthClientService implements ClientDetailsService {
     public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
         OAuthClient client = clientBiz.findByClientId(clientId);
         if (client == null) {
-            throw new ClientRegistrationException("无效的客户端！");
+            throw new NoSuchClientException("无效的客户端！");
         }
         return client;
     }

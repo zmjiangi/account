@@ -10,15 +10,26 @@ import java.util.Set;
 @Document
 public class OAuthCode {
     @Id
+    private String id;
+    @Indexed(unique = true, sparse = true)
     private String code;
 
     private String clientId;
     private Set<String> scope;
+    private String redirectUri;
     @Indexed(expireAfterSeconds = 0)
     private Date ExpirationDate;
 
     private String accountId;
     private Date creationDate;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getCode() {
         return code;
@@ -38,6 +49,14 @@ public class OAuthCode {
 
     public Set<String> getScope() {
         return scope;
+    }
+
+    public String getRedirectUri() {
+        return redirectUri;
+    }
+
+    public void setRedirectUri(String redirectUri) {
+        this.redirectUri = redirectUri;
     }
 
     public void setScope(Set<String> scope) {

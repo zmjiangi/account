@@ -1,18 +1,21 @@
-package net.aulang.account.oauth.token;
+package net.aulang.account.oauth.provider;
 
+import net.aulang.account.oauth.token.MongoTokenStore;
 import net.aulang.account.util.StrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.DefaultOAuth2RefreshToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.provider.NoSuchClientException;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.TokenRequest;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MongoTokenService implements AuthorizationServerTokenServices {
+public class OAuthTokenService implements AuthorizationServerTokenServices {
     @Autowired
     private MongoTokenStore tokenStore;
 
@@ -23,14 +26,24 @@ public class MongoTokenService implements AuthorizationServerTokenServices {
         accessToken.setScope(authentication.getOAuth2Request().getScope());
         accessToken.setRefreshToken(new DefaultOAuth2RefreshToken(StrUtils.UUID()));
 
-        tokenStore.storeAccessToken(accessToken, authentication);
+        try {
+            tokenStore.storeAccessToken(accessToken, authentication);
+        } catch (NoSuchClientException e) {
+            throw new BadCredentialsException("无效的客户端！");
+        }
 
         return tokenStore.readAccessToken(accessToken.getValue());
     }
 
     @Override
     public OAuth2AccessToken refreshAccessToken(String refreshToken, TokenRequest tokenRequest) throws AuthenticationException {
-        return tokenStore.refreshAccessToken(refreshToken, StrUtils.UUID());
+        OAuth2AccessToken accessToken = tokenStore.refreshAccessToken(refreshToken, StrUtils.UUID());
+
+        if (accessToken == null) {
+            throw new BadCredentialsException("找不到令牌");
+        }
+
+        return accessToken;
     }
 
     @Override

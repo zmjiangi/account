@@ -20,6 +20,7 @@ public class AuthCodeService implements AuthorizationCodeServices {
         return codeBiz.create(
                 authentication.getOAuth2Request().getClientId(),
                 authentication.getOAuth2Request().getScope(),
+                authentication.getOAuth2Request().getRedirectUri(),
                 authentication.getUserAuthentication().getName(),
                 true
         ).getCode();
@@ -27,9 +28,9 @@ public class AuthCodeService implements AuthorizationCodeServices {
 
     @Override
     public OAuth2Authentication consumeAuthorizationCode(String code) throws InvalidGrantException {
-        OAuthCode authCode = codeBiz.findByCode(code);
+        OAuthCode authCode = codeBiz.consumeCode(code);
         if (authCode == null) {
-            return null;
+            throw new InvalidGrantException("无效的认证码！");
         }
 
         OAuth2Request storedRequest = new OAuth2Request(
@@ -39,7 +40,7 @@ public class AuthCodeService implements AuthorizationCodeServices {
                 true,
                 authCode.getScope(),
                 null,
-                null,
+                authCode.getRedirectUri(),
                 null,
                 null
         );
