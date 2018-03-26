@@ -6,7 +6,7 @@
 		</Console>
 	</Appenders>
 	<Loggers>
-		<AsyncRoot level="warn">
+		<AsyncRoot level="debug">
 			<AppenderRef ref="console" />
 		</AsyncRoot>
 	</Loggers>

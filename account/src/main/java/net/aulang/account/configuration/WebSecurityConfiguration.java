@@ -2,7 +2,6 @@ package net.aulang.account.configuration;
 
 import net.aulang.account.oauth.AccountDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.Http401AuthenticationEntryPoint;
 import org.springframework.boot.autoconfigure.security.oauth2.authserver.AuthorizationServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -29,10 +28,5 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.anonymous().disable();
         http.headers().frameOptions().disable();
-        http.authorizeRequests().anyRequest().authenticated();
-
-        http.exceptionHandling().authenticationEntryPoint(
-                new Http401AuthenticationEntryPoint("Bearer realm=\"" + properties.getRealm() + "\"")
-        );
     }
 }
