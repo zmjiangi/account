@@ -15,16 +15,12 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 
-configurations {
-    all*.exclude group: 'ch.qos.logback', module: 'logback-classic'
-}
-
 dependencies {
     compile project(':account-api')
     compile(
             "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
             "org.springframework.boot:spring-boot-starter-security:${springBootVersion}",
-            "org.springframework.boot:spring-boot-starter-mustache:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}",
             "org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}",
             'org.springframework.security.oauth:spring-security-oauth2:2.3.0.RELEASE',
 
