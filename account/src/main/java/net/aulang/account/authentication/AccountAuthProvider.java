@@ -2,7 +2,6 @@ package net.aulang.account.authentication;
 
 import net.aulang.account.document.Account;
 import net.aulang.account.manage.AccountBiz;
-import net.aulang.account.oauth.AccountIdAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -13,7 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AccountAuthenticationProvider implements AuthenticationProvider {
+public class AccountAuthProvider implements AuthenticationProvider {
     @Autowired
     private AccountBiz accountBiz;
 

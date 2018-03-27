@@ -2,7 +2,7 @@ package net.aulang.account.oauth.token;
 
 import net.aulang.account.document.AccountToken;
 import net.aulang.account.manage.AccountTokenBiz;
-import net.aulang.account.oauth.AccountIdAuthentication;
+import net.aulang.account.authentication.AccountIdAuthentication;
 import net.aulang.account.util.StrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;

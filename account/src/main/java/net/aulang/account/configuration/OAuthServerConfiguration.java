@@ -1,6 +1,6 @@
 package net.aulang.account.configuration;
 
-import net.aulang.account.oauth.AccountDetailsService;
+import net.aulang.account.authentication.AccountDetailsService;
 import net.aulang.account.oauth.provider.AuthCodeService;
 import net.aulang.account.oauth.provider.OAuthClientService;
 import net.aulang.account.oauth.provider.OAuthTokenService;

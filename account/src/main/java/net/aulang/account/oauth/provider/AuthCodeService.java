@@ -2,7 +2,7 @@ package net.aulang.account.oauth.provider;
 
 import net.aulang.account.document.OAuthCode;
 import net.aulang.account.manage.OAuthCodeBiz;
-import net.aulang.account.oauth.AccountIdAuthentication;
+import net.aulang.account.authentication.AccountIdAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;

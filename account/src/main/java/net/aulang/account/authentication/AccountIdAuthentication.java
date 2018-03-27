@@ -1,4 +1,4 @@
-package net.aulang.account.oauth;
+package net.aulang.account.authentication;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

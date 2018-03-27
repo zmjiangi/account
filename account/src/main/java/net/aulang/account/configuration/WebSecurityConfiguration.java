@@ -1,7 +1,7 @@
 package net.aulang.account.configuration;
 
-import net.aulang.account.authentication.AccountAuthenticationProvider;
-import net.aulang.account.oauth.AccountDetailsService;
+import net.aulang.account.authentication.AccountAuthProvider;
+import net.aulang.account.authentication.AccountDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.authserver.AuthorizationServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -18,7 +18,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private AccountDetailsService userDetailsService;
     @Autowired
-    private AccountAuthenticationProvider authenticationProvider;
+    private AccountAuthProvider authenticationProvider;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -28,16 +28,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
-
-        http.authorizeRequests()
+        http.csrf().disable()
+                .headers().frameOptions().disable()
+                .and()
+                .authorizeRequests()
                 .antMatchers("/", "/index").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
                 .and()
-                .logout().permitAll()
-                .and();
+                .logout().permitAll();
     }
 }
