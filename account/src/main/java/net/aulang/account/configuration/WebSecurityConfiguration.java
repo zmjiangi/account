@@ -1,5 +1,6 @@
 package net.aulang.account.configuration;
 
+import net.aulang.account.authentication.AccountAuthenticationProvider;
 import net.aulang.account.oauth.AccountDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.authserver.AuthorizationServerProperties;
@@ -16,10 +17,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private AccountDetailsService userDetailsService;
+    @Autowired
+    private AccountAuthenticationProvider authenticationProvider;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        auth.authenticationProvider(authenticationProvider)
+                .userDetailsService(userDetailsService);
     }
 
     @Override
