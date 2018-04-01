@@ -14,6 +14,7 @@ public class OAuthClient implements ClientDetails {
     private String id;
     @Indexed(unique = true, sparse = true)
     private String clientId;
+    private String clientName;
     private String clientSecret;
     private Set<String> registeredRedirectUri;
     private Set<String> scope = Collections.emptySet();
@@ -40,6 +41,14 @@ public class OAuthClient implements ClientDetails {
 
     public void setClientId(String clientId) {
         this.clientId = clientId;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
     @Override

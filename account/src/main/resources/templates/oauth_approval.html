@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>授权</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 well">
+            <h3>授权页</h3>
+            应用名：<span th:text="${clientName}">clientName</span>
+            <form id='confirmationForm' name='confirmationForm' th:action="@{/oauth/authorize}" method='post'>
+                <input name='user_oauth_approval' value='true' type='hidden'/>
+                <input th:name="${scope}" value="true" type="hidden" th:each="scope : ${scopeList}"/>
+                <input name='authorize' value='授权' type='submit'/>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
